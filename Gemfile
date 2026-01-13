@@ -14,7 +14,7 @@ source "https://mirrors.aliyun.com/rubygems/"
 # Happy Jekylling!
 gem "github-pages", "~> 232", group: :jekyll_plugins
 # gem "jekyll", "~> 4.4.1"
-
+gem "jekyll-include-cache", group: :jekyll_plugins
 
 # 主题（你用的是 minimal-mistakes-jekyll）
 gem "minimal-mistakes-jekyll"
