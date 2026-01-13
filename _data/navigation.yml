@@ -1,0 +1,14 @@
+# 主菜单
+main:
+  - title: "首页"
+    url: /
+  - title: "简历"
+    url: /cv/
+  - title: "出版物"
+    url: /publications/
+  - title: "新闻"
+    url: /news/
+  - title: "博客"
+    url: /blog/
+  - title: "关于"
+    url: /about/

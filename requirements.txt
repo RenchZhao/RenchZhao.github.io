@@ -1,0 +1,5 @@
+# I deployed it on Ubuntu 22.04
+# https://www.jekyll.com.cn/docs/installation/#requirements
+# https://www.jekyll.com.cn/docs/
+
+gem install jekyll bundler jemoji
