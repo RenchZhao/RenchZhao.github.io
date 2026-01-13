@@ -12,7 +12,8 @@ source "https://mirrors.aliyun.com/rubygems/"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "jekyll", "~> 4.4.1"
+gem "github-pages", "~> 232", group: :jekyll_plugins
+# gem "jekyll", "~> 4.4.1"
 
 
 # 主题（你用的是 minimal-mistakes-jekyll）
@@ -45,4 +46,3 @@ gem "wdm", "~> 0.1", :platforms => [:mingw, :x64_mingw, :mswin]
 # Lock `http_parser.rb` gem to `v0.6.x` on JRuby builds since newer versions of the gem
 # do not have a Java counterpart.
 gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
-gem "minimal-mistakes-jekyll"

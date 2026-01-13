@@ -4,6 +4,7 @@
 
 layout: home
 title: ""
+author_profile: true
 ---
 
 # 你好，我是RenchZhao 👋

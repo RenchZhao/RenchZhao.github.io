@@ -4,3 +4,5 @@ _site
 .jekyll-metadata
 vendor
 dev.txt
+*backup*
+Gemfile.lock
