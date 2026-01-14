@@ -23,9 +23,9 @@
 title: "RenchZhao's WorkStation"
 email: RenchZhao@189.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  RenchZhao's WorkStation, his personal website contains of gallery information such as cv, blogs and publications.
+  He completed this website in one day with the spirit of hackathon.
+  I challenge you to build your personal website in one day like him.
 baseurl: "/"
 url: ""
 # baseurl: "/"

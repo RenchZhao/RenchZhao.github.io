@@ -2,7 +2,6 @@
 layout: archive
 title: "出版物"
 permalink: /publications/
-author_profile: true
 ---
 
 # 论文

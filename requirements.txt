@@ -1,4 +1,4 @@
-# I deployed it on Ubuntu 22.04
+# I developed it on Ubuntu 22.04
 # https://www.jekyll.com.cn/docs/installation/#requirements
 # https://www.jekyll.com.cn/docs/
 

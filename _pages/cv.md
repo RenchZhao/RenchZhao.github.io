@@ -8,8 +8,8 @@ author_profile: true
 # 技能
 ---
 - 编程语言：Python, C++, Java
-- 框架工具：PyTorch, TensorFlow, Jekyll, Langgraph
-- 技能领域：软件工程, 深度学习, NLP, LLMs, RAG, Agent, Git, Docker, Linux Shell
+- 框架工具：PyTorch, TensorFlow, Jekyll, Langgraph, Git, Docker, Linux Shell
+- 技能领域：软件工程, 深度学习, NLP, LLMs, RAG, Agent
 
 # 教育背景
 ---
@@ -45,5 +45,5 @@ author_profile: true
   基于LLaMA-Factory使用LoRA算法微调
 
 - **基于Langgraph和Tavily搜索引擎的RAG文献检索Agent** - 2025.08 - 2025.09  
-  使用量化技术和缓存优化，将推理速度提升3倍
+  Agent通过结果反馈对Query迭代优化持续提升搜索效果
 
