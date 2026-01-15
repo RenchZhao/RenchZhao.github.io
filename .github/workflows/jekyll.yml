@@ -1,0 +1,81 @@
+# 工作流名称
+name: Deploy Jekyll site to Pages
+
+# 触发条件
+on:
+  # 在推送到默认分支时触发
+  push:
+    branches: ["main"]
+  # 允许手动触发
+  workflow_dispatch:
+
+# 权限设置
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 并发设置，确保只有一个部署在进行
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# 任务定义
+jobs:
+  # 构建任务
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出代码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. 设置 Ruby 环境
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0' # 指定 Ruby 版本
+          bundler-cache: true # 自动运行 bundle install
+          cache-version: 0 # 缓存版本
+
+      # 3. 设置 Node.js 环境（如果需要）
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # 4. 安装依赖
+      - name: Install dependencies
+        run: |
+          bundle install
+          npm install -g jekyll
+
+      # 5. 构建站点
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --baseurl ""
+        env:
+          JEKYLL_ENV: production
+
+      # 6. 上传构建产物
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./_site"
+
+  # 部署任务
+  deploy:
+    # 依赖构建任务
+    needs: build
+    
+    # 部署环境
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
