@@ -24,7 +24,7 @@ concurrency:
 jobs:
   # 构建任务
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       # 1. 检出代码
       - name: Checkout
@@ -32,35 +32,18 @@ jobs:
 
       # 2. 设置 Ruby 环境
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v2
         with:
           ruby-version: '3.0.2' # 指定 Ruby 版本
+          bundler-cache: true     # 启用 Bundler 缓存
 
-      # 3. 安装依赖
-      - name: Install dependencies
-        run: |
-          bundle config set --local path vendor/bundle
-          bundle install
-
-      # 3. 设置 Node.js 环境（如果需要）
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      # 4. 安装依赖
-      - name: Install dependencies
-        run: |
-          bundle install
-          npm install -g jekyll
-
-      # 5. 构建站点
+      # 3. 构建站点
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl ""
         env:
           JEKYLL_ENV: production
 
-      # 6. 上传构建产物
+      # 4. 上传构建产物
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -76,7 +59,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     
     steps:
       # 1. 部署到 GitHub Pages
