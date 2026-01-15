@@ -59,6 +59,12 @@ minimal_mistakes_skin: "dark"  # 可选: default, air, contrast, dark, dirt, neo
 
 # 语言
 locale: "zh-CN"
+languages: ["en", "zh"]
+default_lang: "zh"
+exclude_from_localization: ["assets/css", "assets/img"] # 不进行本地化的目录
+parallel_localization: true
+sass:
+  sourcemap: never
 
 # 搜索功能
 search: true
@@ -71,39 +77,49 @@ author:
   bio    : "科技爱好者"
   location: "中国, 广州"
 
-
-# ========== 目录包含配置 ==========
-# 注意：Jekyll默认不会处理以下划线开头的自定义目录(如_pages)
-# 必须在include中显式声明，否则该目录下的文件会被忽略
+# ========== Markdown配置 ==========
+markdown: kramdown
+kramdown:
+  auto_ids: true
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  input: GFM  # 关键：启用 GitHub Flavored Markdown，支持表格
+  hard_wrap: false
+  footnote_nr: 1
+  show_warnings: false
+  syntax_highlighter: rouge
+  
+# ========== 目录配置 ==========
+# 注意：使用jekyll-polyglot时，不需要特别include语言目录
+# 插件会自动处理多语言内容
 include:
   - _pages
-  - _publications  # 如果你使用collections
-  - _news
-  
-# 博客文章默认设置
+  - _posts
+
 defaults:
-  # _posts
+  # 所有页面默认配置
   - scope:
       path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
-
-  # _pages
-  - scope:
-      path: "_pages"
       type: pages
     values:
       layout: single
       author_profile: true
 
+  # 所有博客文章默认配置
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author_profile: true
+      read_time: true
+      comments: true
+      related: true
+
 # 插件
 plugins:
+  - jekyll-polyglot
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist

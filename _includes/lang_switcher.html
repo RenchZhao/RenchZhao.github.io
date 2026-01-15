@@ -1,0 +1,78 @@
+<!-- 调试信息：current_lang={{ page.lang | default: 'zh' }}, current_path={{ page.url | default: '/' }} -->
+<nav class="language-switcher">
+  {% assign current_lang = page.lang | default: 'zh' %}
+  {% assign current_path = page.url | default: '/' %}
+  
+  {% if current_lang == 'en' %}
+    <!-- 英文页面 -->
+    <span class="current-lang">English</span>
+    {% if current_path == '/' %}
+      <!-- 英文首页 -->
+      <a href="/" class="alt-lang" onclick="console.log('点击切换到中文首页');">中文</a>
+    {% else %}
+      <!-- 其他英文页面 -->
+      <a href="{{ current_path | replace: '/en', '' }}" class="alt-lang" onclick="console.log('点击切换到中文页面: {{ current_path | replace: '/en', '' }}');">中文</a>
+    {% endif %}
+  {% else %}
+    <!-- 中文页面 -->
+    <span class="current-lang">中文</span>
+    {% if current_path == '/' %}
+      <!-- 中文首页 -->
+      <a href="/en/" class="alt-lang" onclick="console.log('点击切换到英文首页');">English</a>
+    {% else %}
+      <!-- 其他中文页面 -->
+      <a href="/en{{ current_path }}" class="alt-lang" onclick="console.log('点击切换到英文页面: /en{{ current_path }}');">English</a>
+    {% endif %}
+  {% endif %}
+</nav>
+
+<style>
+  .language-switcher {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0.5rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    margin-left: 1rem;  /* 在搜索按钮右边添加间距 */
+  }
+  
+  .language-switcher a, .language-switcher span {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+  }
+  
+  .language-switcher .current-lang {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: default;
+  }
+  
+  .language-switcher .alt-lang {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+  }
+  
+  .language-switcher .alt-lang:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
+  
+  @media (max-width: 768px) {
+    .language-switcher {
+      padding: 0.3rem;
+      margin-left: 0.5rem;
+    }
+    .language-switcher a, .language-switcher span {
+      padding: 0.3rem 0.7rem;
+      font-size: 0.8rem;
+    }
+  }
+</style>

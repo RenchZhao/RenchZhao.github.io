@@ -1,8 +1,9 @@
 ---
-layout: single
+layout: custom-page
 title: "简历"
 permalink: /cv/
 author_profile: true
+lang: zh
 ---
 
 # 技能
@@ -46,4 +47,3 @@ author_profile: true
 
 - **基于Langgraph和Tavily搜索引擎的RAG文献检索Agent** - 2025.08 - 2025.09  
   Agent通过结果反馈对Query迭代优化持续提升搜索效果
-

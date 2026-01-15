@@ -1,7 +1,7 @@
 ---
-title: "标签分类"
-layout: categories
+title: "分类"
+layout: custom-categories
 permalink: /blog/categories/
 author_profile: true
-
+lang: zh
 ---

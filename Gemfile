@@ -14,6 +14,7 @@ source "https://mirrors.aliyun.com/rubygems/"
 # Happy Jekylling!
 gem "github-pages", "~> 232", group: :jekyll_plugins
 # gem "jekyll", "~> 4.4.1"
+gem "jekyll-polyglot", group: :jekyll_plugins      # 添加 Polyglot
 gem "jekyll-include-cache", group: :jekyll_plugins
 
 # 主题（你用的是 minimal-mistakes-jekyll）
@@ -26,7 +27,6 @@ gem "jekyll-paginate"
 gem "jekyll-sitemap"
 gem "jekyll-gist"
 gem "jekyll-feed", "~> 0.12"
-gem "jekyll-include-cache"
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.

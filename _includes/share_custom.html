@@ -1,0 +1,158 @@
+<section class="share">
+  <h4>分享到</h4>
+  <div class="share-buttons">
+    <a href="https://service.weibo.com/share/share.php?url={{ site.url }}{{ page.url }}&title={{ page.title | cgi_escape }}" class="btn" title="分享到微博">
+      微博
+    </a>
+    <a href="https://www.zhihu.com/search?type=content&q={{ page.title | cgi_escape }}" class="btn" title="分享到知乎">
+      知乎
+    </a>
+    <button onclick="showWeChatQR('{{ site.url }}{{ page.url }}')" class="btn" title="分享到微信">
+      微信
+    </button>
+    <a href="https://www.xiaohongshu.com/search_result?keyword={{ page.title | cgi_escape }}" class="btn" title="分享到小红书">
+      小红书
+    </a>
+    <button onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" class="btn" title="复制链接">
+      复制链接
+    </button>
+  </div>
+
+  <!-- 微信二维码模态框 -->
+  <div id="wechatModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>分享到微信</h3>
+      <p>使用微信扫一扫分享此文章</p>
+      <div id="qrcode"></div>
+      <p style="font-size: 0.9rem; color: #666;">或复制链接发送给好友</p>
+    </div>
+  </div>
+
+  <script>
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(function() {
+        alert('链接已复制到剪贴板！');
+      }, function(err) {
+        console.error('无法复制: ', err);
+      });
+    }
+    
+    // 微信二维码功能
+    function showWeChatQR(url) {
+      document.getElementById('wechatModal').style.display = 'block';
+      // 使用简单的 QR Code 生成库
+      var qrcodeDiv = document.getElementById('qrcode');
+      qrcodeDiv.innerHTML = '';
+      
+      // 创建 QR Code 的 Canvas
+      var canvas = document.createElement('canvas');
+      canvas.width = 200;
+      canvas.height = 200;
+      qrcodeDiv.appendChild(canvas);
+      
+      // 简单的 QR Code 生成（使用外部库会更完善）
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 200, 200);
+      ctx.fillStyle = '#000000';
+      ctx.font = '12px monospace';
+      ctx.fillText('QR Code for:', 10, 20);
+      ctx.fillText(url.substring(0, 30), 10, 40);
+      if (url.length > 30) {
+        ctx.fillText(url.substring(30, 60), 10, 55);
+      }
+      ctx.fillText('(请使用微信扫描)', 10, 180);
+    }
+    
+    // 关闭模态框
+    document.addEventListener('DOMContentLoaded', function() {
+      var modal = document.getElementById('wechatModal');
+      var span = document.getElementsByClassName('close')[0];
+      
+      if (span) {
+        span.onclick = function() {
+          modal.style.display = 'none';
+        }
+      }
+      
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      }
+    });
+  </script>
+
+  <style>
+    .share-buttons {
+      margin-top: 1rem;
+    }
+    .share-buttons .btn {
+      display: inline-block;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #f0f0f0;
+      color: #333;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+    }
+    .share-buttons .btn:hover {
+      background-color: #e0e0e0;
+    }
+    
+    /* 模态框样式 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+    }
+    
+    #qrcode {
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #qrcode canvas {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</section>

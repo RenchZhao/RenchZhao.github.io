@@ -1,8 +1,5 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
+layout: custom-home
 title: ""
 author_profile: true
 ---
@@ -23,5 +20,5 @@ author_profile: true
 - [我的简历](/cv/)
 - [出版物](/publications/)
 - [新闻动态](/news/)
-- [GitHub](https://github.com/yourusername)
+- [GitHub](https://github.com/RenchZhao)
 

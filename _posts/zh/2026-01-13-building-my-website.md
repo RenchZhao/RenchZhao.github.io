@@ -1,9 +1,9 @@
 ---
-layout: single
 title: "我如何在一天内用黑客马拉松精神搭建这个网站"
 date: 2026-01-13 22:22:00 +0800
 categories: 学习笔记
 tags: [Jekyll, 博客, Vibe Coding, 前端]
+lang: zh
 ---
 
 本网站源代码已在[github仓库](https://github.com/RenchZhao/RenchZhao.github.io)开源了，欢迎借鉴
@@ -63,6 +63,7 @@ Jekyll在将MarkDown转换成Html时候默认只搜寻根目录。我听从扣�
 因此可能还得是全部CSS自己写。
 
 下面列出了我使用的theme:Minimal-Mistakes-Jekyll的各种可用Layout
+
 |场景|推荐Layout|说明|
 | ----------- | ----------- | ----------- |
 |个人简介、CV、Projects|single|单页内容，带作者头像|
@@ -99,4 +100,63 @@ remote_theme: "mmistakes/minimal-mistakes@4.27.3"
 - [https://docs.github.com/zh/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll](https://docs.github.com/zh/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll)
 
 - [https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/](https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/)
+
+
+# 20260115更新
+学习了基本内容之后，我使用中国阿里巴巴公司的iFlow编程Agent工具帮我迭代版本。
+它作为Agent有个好处就是可以直接在本地修改代码，然后即时确认结果，类似ReAct或Claude的放羊大叔5行代码的思想，收集报错信息不断迭代改善代码。
+
+要实现多语言切换似乎没这么容易。我的默认语言是zh简体中文
+要切换首先需要子站点en，和对应的markdown内容。
+接着需要配置对应的路径，我使用 包
+
+在_config.yml内添加
+
+```
+# 语言
+locale: "zh-CN"
+languages: ["en", "zh"]
+default_lang: "zh"
+exclude_from_localization: ["assets/css", "assets/img"] # 不进行本地化的目录
+parallel_localization: true
+sass:
+  sourcemap: never
+```
+这部分参考的这位博主的文章：[https://zhuanlan.zhihu.com/p/675384720](https://zhuanlan.zhihu.com/p/675384720)
+
+
+```
+# ========== 目录配置 ==========
+# 注意：使用jekyll-polyglot时，不需要特别include语言目录
+# 插件会自动处理多语言内容
+include:
+  - _pages
+  - _posts
+
+defaults:
+  # 所有页面默认配置
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+
+  # 所有博客文章默认配置
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: posts
+      author_profile: true
+      read_time: true
+      comments: true
+      related: true
+```
+
+然后每个markdown的Front Matter的 permalink这里我踩了一些坑。就是语言前缀是 包自动控制，加上去en zh前缀的话_site文件夹下面结构会乱掉，然后找不到页面。因此保持原来的不变即可。
+
+另外还有导航栏问题。我的主题Minial-Mistakes似乎没有原生支持多语言。因此navigation.yml只能有一个，这样完全无法实现功能。最后还是在/assets/js下面写一个专门的javascript实现不同语言的导航栏，加到每个layout里面，改个名放到_layout下面，才终于实现不同语言自己的导航栏。
+
+
 

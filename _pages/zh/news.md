@@ -1,8 +1,9 @@
 ---
-layout: archive
-title: "新闻动态"
+layout: custom-archive
+title: "新闻"
 permalink: /news/
 author_profile: true
+lang: zh
 ---
 
 # 2025
