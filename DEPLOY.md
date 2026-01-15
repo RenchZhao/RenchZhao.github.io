@@ -120,7 +120,7 @@ git push origin main
 - name: Setup Ruby
   uses: ruby/setup-ruby@v1
   with:
-    ruby-version: '3.0.2p107'  # 或 '3.2'，根据你的本地版本
+    ruby-version: '3.0.2'  # 或 '3.2'，根据你的本地版本
 ```
 
 ## 参考资料

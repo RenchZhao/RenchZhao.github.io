@@ -34,7 +34,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0.2p107' # 指定 Ruby 版本
+          ruby-version: '3.0.2' # 指定 Ruby 版本
 
       # 3. 安装依赖
       - name: Install dependencies
