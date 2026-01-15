@@ -71,6 +71,58 @@ GitHub Actions workflow 会：
 2. 检查 permalink 配置是否正确（不应包含语言前缀）
 3. 检查文件路径是否正确
 
+### 构建失败：nokogiri 版本找不到
+
+**错误信息**：
+```
+Your bundle is locked to nokogiri (1.19.0-x86_64-linux) from rubygems repository
+https://mirrors.aliyun.com/rubygems/ or installed locally, but that version can
+no longer be found in that source.
+```
+
+**解决方案**：
+
+在本地删除并重新生成 Gemfile.lock：
+
+```bash
+# 删除 Gemfile.lock
+rm Gemfile.lock
+
+# 重新生成
+bundle install
+
+# 提交更改
+git add Gemfile.lock
+git commit -m "Update Gemfile.lock to fix nokogiri dependency"
+git push origin main
+```
+
+### 构建冲突：两个部署流程同时运行
+
+**问题描述**：GitHub Pages 默认构建和 GitHub Actions 同时运行，导致冲突。
+
+**解决方案**：
+
+1. 打开 GitHub 仓库页面
+2. 点击 **Settings** > **Pages**
+3. 在 **Build and deployment** 部分：
+   - **Source**: 选择 **"GitHub Actions"**
+   - 这会禁用默认的 Jekyll 构建
+4. 保存设置
+
+### 构建超时或依赖安装失败
+
+**解决方案**：
+
+检查 `.github/workflows/jekyll.yml` 中的 Ruby 版本是否与本地一致，必要时更新：
+
+```yaml
+- name: Setup Ruby
+  uses: ruby/setup-ruby@v1
+  with:
+    ruby-version: '3.0.2p107'  # 或 '3.2'，根据你的本地版本
+```
+
 ## 参考资料
 
 - [GitHub Pages 官方文档](https://docs.github.com/zh/pages)

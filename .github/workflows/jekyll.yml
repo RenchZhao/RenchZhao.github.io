@@ -34,9 +34,13 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0' # 指定 Ruby 版本
-          bundler-cache: true # 自动运行 bundle install
-          cache-version: 0 # 缓存版本
+          ruby-version: '3.0.2p107' # 指定 Ruby 版本
+
+      # 3. 安装依赖
+      - name: Install dependencies
+        run: |
+          bundle config set --local path vendor/bundle
+          bundle install
 
       # 3. 设置 Node.js 环境（如果需要）
       - name: Setup Node
