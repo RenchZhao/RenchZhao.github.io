@@ -32,7 +32,7 @@ jobs:
 
       # 2. 设置 Ruby 环境
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v2
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0.2' # 指定 Ruby 版本
           bundler-cache: true     # 启用 Bundler 缓存
