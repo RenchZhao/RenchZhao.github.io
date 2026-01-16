@@ -106,11 +106,9 @@ remote_theme: "mmistakes/minimal-mistakes@4.27.3"
 学习了基本内容之后，我使用中国阿里巴巴公司的iFlow编程Agent工具帮我迭代版本。
 它作为Agent有个好处就是可以直接在本地修改代码，然后即时确认结果，类似ReAct或Claude的放羊大叔5行代码的思想，收集报错信息不断迭代改善代码。
 
-要实现多语言切换似乎没这么容易。我的默认语言是zh简体中文
-要切换首先需要子站点en，和对应的markdown内容。
-接着需要配置对应的路径，我使用 包
-
-在_config.yml内添加
+要实现多语言切换似乎没这么容易。我的默认语言是zh简体中文要切换首先需要子目录en，和下面对应的英文Markdown内容。
+接着需要配置对应的路径，我使用jekyll-polyglot包。
+首先在_config.yml内添加多语言设置
 
 ```
 # 语言
@@ -154,9 +152,15 @@ defaults:
       related: true
 ```
 
-然后每个markdown的Front Matter的 permalink这里我踩了一些坑。就是语言前缀是 包自动控制，加上去en zh前缀的话_site文件夹下面结构会乱掉，然后找不到页面。因此保持原来的不变即可。
+然后每个Markdown的Front Matter的permalink这里我踩了一些坑。就是语言前缀其实是jekyll-polyglot包自动控制，单个页面permalink加上去en，zh前缀的话_site文件夹下面结构会乱掉，然后找不到页面。因此保持原来的不变即可。
 
-另外还有导航栏问题。我的主题Minial-Mistakes似乎没有原生支持多语言。因此navigation.yml只能有一个，这样完全无法实现功能。最后还是在/assets/js下面写一个专门的javascript实现不同语言的导航栏，加到每个layout里面，改个名放到_layout下面，才终于实现不同语言自己的导航栏。
+另外还有导航栏问题。我的主题Minial-Mistakes似乎没有原生支持多语言。因此navigation.yml只能有一个，这样完全无法实现功能。最后还是在/assets/js下面写一个专门的javascript实现不同语言的导航栏，加到每个layout里面，改个名放到_layout下面，才终于实现不同语言自己的导航栏。然后让iFlow帮我在导航栏中写了一个语言切换工具。在导航栏内是因为防止有时候切换按钮被导航栏遮挡导致点击无效（又是一个踩坑）
+
+用到jekyll-polyglot包的话，默认的github部署工作流就不能正常工作了。需要手动写github的Action的workflow部署代码模板。
+首先在github仓库，Settings->Pages->Build and deployment的部分Source要选上Github Actions这一项。然后推送你的github Action部署模板时自动触发调用部署。
+
+需要用下面的github Action部署模板。iFlow和其他AI之前帮我写的部署模板代码有问题，怎么改都不对导致github上部署错误。因此在Agent.md中还是得写指令让它先网上查一下官方文档和成熟解决方案，不要一上来就自己造轮子。
+[github官方Jekyll部署Action模板](https://github.com/actions/starter-workflows/blob/main/pages/jekyll.yml?spm=5176.28103460.0.0.4a117551g8sBg6&file=jekyll.ym)
 
 
 

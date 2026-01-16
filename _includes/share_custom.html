@@ -4,15 +4,15 @@
     <a href="https://service.weibo.com/share/share.php?url={{ site.url }}{{ page.url }}&title={{ page.title | cgi_escape }}" class="btn" title="分享到微博">
       微博
     </a>
-    <a href="https://www.zhihu.com/search?type=content&q={{ page.title | cgi_escape }}" class="btn" title="分享到知乎">
-      知乎
+    <a href="http://tieba.baidu.com/f/commit/share/openShareApi?title={{ page.title | cgi_escape }}&url={{ site.url }}{{ page.url }}" class="btn" title="分享到百度贴吧">
+      百度贴吧
+    </a>
+    <a href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{ site.url }}{{ page.url }}&title={{ page.title | cgi_escape }}&desc={{ page.excerpt | default: page.title | strip_html | strip_newlines | truncate: 100 | cgi_escape }}" class="btn" title="分享到QQ空间">
+      QQ空间
     </a>
     <button onclick="showWeChatQR('{{ site.url }}{{ page.url }}')" class="btn" title="分享到微信">
       微信
     </button>
-    <a href="https://www.xiaohongshu.com/search_result?keyword={{ page.title | cgi_escape }}" class="btn" title="分享到小红书">
-      小红书
-    </a>
     <button onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" class="btn" title="复制链接">
       复制链接
     </button>
@@ -29,6 +29,13 @@
     </div>
   </div>
 
+  <!-- 引入qrcodejs库 -->
+  <script>
+    // qrcodejs库加载状态
+    window.qrcodejsLoaded = false;
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" onload="window.qrcodejsLoaded = true;" onerror="window.qrcodejsLoaded = false; console.warn('qrcodejs库加载失败，将使用备用方案');"></script>
+  
   <script>
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(function() {
@@ -41,28 +48,44 @@
     // 微信二维码功能
     function showWeChatQR(url) {
       document.getElementById('wechatModal').style.display = 'block';
-      // 使用简单的 QR Code 生成库
       var qrcodeDiv = document.getElementById('qrcode');
       qrcodeDiv.innerHTML = '';
       
-      // 创建 QR Code 的 Canvas
-      var canvas = document.createElement('canvas');
-      canvas.width = 200;
-      canvas.height = 200;
-      qrcodeDiv.appendChild(canvas);
-      
-      // 简单的 QR Code 生成（使用外部库会更完善）
-      var ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, 200, 200);
-      ctx.fillStyle = '#000000';
-      ctx.font = '12px monospace';
-      ctx.fillText('QR Code for:', 10, 20);
-      ctx.fillText(url.substring(0, 30), 10, 40);
-      if (url.length > 30) {
-        ctx.fillText(url.substring(30, 60), 10, 55);
+      // 检查qrcodejs是否加载成功
+      if (window.qrcodejsLoaded && typeof QRCode !== 'undefined') {
+        try {
+          // 使用 qrcodejs 生成二维码
+          new QRCode(qrcodeDiv, {
+            text: url,
+            width: 200,
+            height: 200,
+            colorDark: '#000000',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+          });
+        } catch (e) {
+          console.error('qrcodejs生成失败:', e);
+          showQRCodeFallback(url, qrcodeDiv);
+        }
+      } else {
+        // 使用备用方案：Google Chart API
+        showQRCodeFallback(url, qrcodeDiv);
       }
-      ctx.fillText('(请使用微信扫描)', 10, 180);
+    }
+    
+    // 备用二维码方案
+    function showQRCodeFallback(url, container) {
+      var img = document.createElement('img');
+      img.src = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' + encodeURIComponent(url) + '&choe=UTF-8';
+      img.alt = '微信二维码';
+      img.style.border = '1px solid #ddd';
+      img.style.borderRadius = '4px';
+      img.style.width = '200px';
+      img.style.height = '200px';
+      img.onerror = function() {
+        container.innerHTML = '<p style="color: #666; font-size: 14px;">二维码加载失败<br>请手动复制链接分享</p>';
+      };
+      container.appendChild(img);
     }
     
     // 关闭模态框

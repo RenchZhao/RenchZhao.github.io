@@ -33,8 +33,6 @@ url: ""
 
 github_username: RenchZhao
 
-
-
 # SEO
 social:
   type:  Person
@@ -74,8 +72,17 @@ search: true
 author:
   name   : "Rench Zhao"
   avatar : "/assets/images/bio-photo.jpg"  # 需要你准备头像
-  bio    : "科技爱好者"
-  location: "中国, 广州"
+  bio    : "Tech Enthusiast"
+  location: "Guangzhou, China"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope"
+      url: "mailto:RenchZhao@189.cn"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/RenchZhao"
+    
+
 
 # ========== Markdown配置 ==========
 markdown: kramdown
@@ -105,6 +112,8 @@ defaults:
     values:
       layout: single
       author_profile: true
+      enable_copy_code_button: true
+      show_date: true
 
   # 所有博客文章默认配置
   - scope:
@@ -113,6 +122,8 @@ defaults:
     values:
       layout: post
       author_profile: true
+      # enable_copy_code_button: true
+      show_date: true
       read_time: true
       comments: true
       related: true
