@@ -27,9 +27,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   He completed this website in one day with the spirit of hackathon.
   I challenge you to build your personal website in one day like him.
 baseurl: "/"
-url: ""
-# baseurl: "/"
-# url: "https://RenchZhao.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://renchzhao.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 github_username: RenchZhao
 
